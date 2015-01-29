@@ -1,0 +1,38 @@
+@title = 'E-mail Crypté avec OpenPGP'
+@nav_title = 'E-mail Crypté'
+
+h2. Qu'est-ce qu'un e-mail crypté ?
+
+L'e-mail crypté est un moyen de garder le contenu de votre e-mail à l'abri d'une interception tandis qu'il se déplace au travers du net. Le type le commun du cryptage est l'OpenPGP (OpenPGP est la spécificité, PGP signifie "Pretty Good Privacy" et son propriétaire, GPG signifie GNU Privacy Guard et est un logiciel gratuit). Il y a plusieurs ressources sur internet qui peuvent vous offrir une explication détaillée du fonctionnement du cryptage. Pour nos objectifs, il y a trois composants qu'il est utile de comprendre : *clef publique*, *clef privée* et *phrase de chiffrement*.
+
+Votre *clef publique* est, comme vous pouvez vous en doutez d'après le nom, disponible publiquement. Parfois, les gens utilisent des serveurs de clefs pour partager les clefs publiques de manière à envoyer des e-mails en utilisant le cryptage plus facilement. Lorsque vous souhaitez envoyer un e-mail crypté, vous devez posséder la clef publique du destinataire. De même, lorsque quelqu'un d'autre souhaite vous envoyer un e-mail crypté, il se doit de posséder votre clef publique.
+
+Une *clef privée* est connectée à exactement une clef publique. Sans clef privée, le contenu d'un message crypté est extrêmement ardu à extraire. Dans l'âge des superordinateurs, rien n'est impossible, mais décrypter un message sans la clef privée est extraordinairement compliqué. Votre clef privée est extrêmement importante et devrait être gardée en lieu sûr à tout moment.
+
+Votre *phrase de chiffrement* devrait comporter au minimum 21 caractères, devrait contenir des caractères MAJUSCULES et minuscules, tout comme des symboles (&$"{@). Votre phrase de chiffrement débloque votre clef privée et autorise sont utilisation, conjointement avec votre clef publique, pour recevoir et envoyer des e-mails cryptés.
+
+h2. Comment j'utilise un e-mail crypté ?
+
+Il y a trois fonctions basiques que vous pouvez mettre en application en utilisant GPG : *signer*, *crypter* et *vérifier*.
+
+*Signer* : Lorsque vous signez quelque chose, vous utilisez votre clef privée et votre phrase de chiffrement pour générer un *bloc-signature* qui sera annexée à l'objet que vous signez. Ce bloc-signature est généré depuis deux choses : (1) une valeur numérique calculée depuis le contenu du message et (2) votre clef privée.
+
+*Vérifier* : Dès lors que quelqu'un reçoit quelque chose qui a été signé, cette personne peut le vérifier en utilisant la clef publique avec laquelle l'objet fut crypté. La clef publique pourrait être téléchargée depuis un serveur-clef, ou bien peut-être envoyée via e-mail par l'expéditeur. Vérifier établi deux choses -->  (1) le message a été signé par quelqu'un qui a accès à la clef privée associée et (2) le contenu du message ne fut pas modifié lors de sa transition.
+
+*Crypter* : Pour crypter un message, vous avez besoin de la clef publique du destinataire. Vous n'avez ni besoin d'une phrase de chiffrement ni d'une clef gpg vous appartenant pour crypter quelque chose. Cependant, la plupart des programmes vont aussi crypter quoi que ce soit  à votre clef publique lors de l'envoi. Autrement, lorsque vous cryptez un message, vous n'êtes plus à même de le lire. Lorsque c'est crypté, le contenu d'un e-mail n'est plus lisible durant sa transition. *Cependant, le sujet, l'expéditeur, et le destinataire sont encore visible*
+
+h2. Puis-je envoyer et recevoir des e-mails cryptés en utilisant la boîte e-mail de riseup ?
+
+Pour l'instant ce n'est pas possible. Il est bien mieux pour les utilisateurs de riseup qui veulent utiliser des e-mails cryptés de se servir d'un client e-mail (comme thunderbird) pour envoyer et recevoir des e-mails, tout en gardant leur clef privée bien à l'abri sur leur machine locale.
+
+h2. Quelles sont les limitations qui peuvent apparaître avec les communications cryptées ?
+
+Les communications cryptées ne vous protègent pas de la *surveillance sociale*, qui est le suivi des relations entre les personnes. Par exemple, si ihatebush@riseup.net envoi des e-mails cryptés de manière régulière à joehill@riseup.net, une personne interceptant les communications peut ne pas savoir de *quoi* ils parlent, mais le simple fait que deux personnes se parlent fréquemment est utile  en soi. De plus, le sujet du message *n'est pas crypté.*
+
+Signer et vérifier n'assure pas  que l'e-mail fut bien envoyé par l'e-mail associé à la clef. Usurper (spoofing) une adresse e-mail est vraiment simple. Ainsi, quelqu'un possédant l'adresse e-mail federalagent@yahoo.com  pourrait : (1) créer une clef pour joehill@riseup.net, (2) charger la clef sur un serveur de clef publique et (3) envoyer un e-mail depuis federalagent@yahoo.com qui apparaît venir de joehill@riseup.net via la signature. Si vous téléchargez simplement la clef publique et vérifiez le message, cela vous annoncera une « bonne signature de la part de joehill@riseup.net » même si le message ne viens pas de joehill du tout ! C'est pourquoi *l'internet de confiance* (web of trust) est si important.
+
+h2. Comment puis-je vérifier l'identité du propriétaire de la clef ?
+
+Donc vous êtes installé avec votre e-mail crypté et en toute sérénité vous envoyez et recevez vos messages. Mais comment pouvez-vous être certain que vous êtes actuellement en train de communiquer avec la personne à laquelle vous pensez ? C'est à ce moment-là que *l'empreinte de clef* entre en jeu.
+
+Chaque clef publique possède une *empreinte* unique. L'empreinte est généré à travers une fonction de hashage, ce qui revient à être une voie à sens unique. 
